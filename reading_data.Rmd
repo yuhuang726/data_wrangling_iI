@@ -1,0 +1,45 @@
+---
+title: "reading_data"
+author: "Yu"
+date: "2024-05-20"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(rvest)
+library(httr)
+
+```
+
+## Scrape a table
+
+I want the first table from [this
+page](https://samhda.s3-us-gov-west-1.amazonaws.com/s3fs-public/field-uploads/2k15StateFiles/NSDUHsaeShortTermCHG2015.htm)
+
+
+read in the html
+
+```{r}
+url = "http://samhda.s3-us-gov-west-1.amazonaws.com/s3fs-public/field-uploads/2k15StateFiles/NSDUHsaeShortTermCHG2015.htm"
+drug_use_html = read_html(url)
+
+drug_use_html
+```
+
+extract the table(s); focus on the first one
+
+```{r}
+tabl_marj = 
+drug_use_html %>% 
+  html_nodes(css = "table") %>% 
+  .[[1]] %>% 
+  html_table() %>% 
+  slice(-1)
+```
+
+html_nodes(css = "table"): extract the tables
+.[[1]]/first(): just use the first one
+html_table: converts an HTML table into a data frame
+slice(-1): delete the first row
+
