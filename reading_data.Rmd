@@ -84,10 +84,25 @@ html_text: only select texts
 tibble(): form a data frame
 
 
-```{r}
+## Get some water data 
 
+This is coming from an API
+
+```{r}
+nyc_water = 
+  GET("https://data.cityofnewyork.us/resource/ia2d-e54m.csv") %>% 
+  content("parsed")
+
+nyc_water = 
+  GET("https://data.cityofnewyork.us/resource/ia2d-e54m.json") %>% 
+  content("text") %>% 
+  jsonlite::fromJSON() %>% 
+  as_tibble()
 ```
 
-
+GET: get data from this API
+content(): parse content in the data
+json: another type of dataset
+jsonlite::fromJSON(): parse the data
 
 
