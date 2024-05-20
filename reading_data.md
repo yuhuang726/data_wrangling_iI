@@ -36,3 +36,41 @@ drug_use_html %>%
 html_nodes(css = “table”): extract the tables .\[\[1\]\]/first(): just
 use the first one html_table: converts an HTML table into a data frame
 slice(-1): delete the first row
+
+## Star Wars Movie info
+
+I want the data form \[here\] (<https://www.imdb.com/list/ls070150896/>)
+
+``` r
+url = "https://www.imdb.com/list/ls070150896/"
+
+swm_html = read_html(url)
+```
+
+Grab elements that I want.
+
+``` r
+title_vec = 
+  swm_html %>% 
+  html_nodes(css = ".lister-item-header a") %>% 
+  html_text()
+
+gross_rev_vec = 
+  swm_html %>%
+  html_elements(".text-small:nth-child(7) span:nth-child(5)") %>%
+  html_text()
+
+runtime_vec = 
+  swm_html %>%
+  html_elements(".runtime") %>%
+  html_text()
+
+swm_df = 
+  tibble(
+    title = title_vec,
+    rev = gross_rev_vec,
+    runtime = runtime_vec)
+```
+
+“.lister-item-header a”: is from Selector Gadget. html_text: only select
+texts tibble(): form a data frame
