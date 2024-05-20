@@ -103,3 +103,26 @@ nyc_water =
 
 GET: get data from this API content(): parse content in the data json:
 another type of dataset jsonlite::fromJSON(): parse the data
+
+## BRFSS
+
+Some process, different data
+
+``` r
+brfss_2010 = 
+  GET("https://chronicdata.cdc.gov/resource/acme-vg9e.csv", 
+      query = list("$limit" = 5000)) %>% 
+  content("parsed")
+```
+
+    ## Rows: 5000 Columns: 23
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (16): locationabbr, locationdesc, class, topic, question, response, data...
+    ## dbl  (6): year, sample_size, data_value, confidence_limit_low, confidence_li...
+    ## lgl  (1): locationid
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+query = list(“\$limit” = 5000): default is 1000

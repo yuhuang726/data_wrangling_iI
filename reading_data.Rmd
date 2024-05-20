@@ -106,3 +106,15 @@ json: another type of dataset
 jsonlite::fromJSON(): parse the data
 
 
+## BRFSS
+
+Some process, different data
+
+```{r}
+brfss_2010 = 
+  GET("https://chronicdata.cdc.gov/resource/acme-vg9e.csv", 
+      query = list("$limit" = 5000)) %>% 
+  content("parsed")
+```
+
+query = list("$limit" = 5000): default is 1000
